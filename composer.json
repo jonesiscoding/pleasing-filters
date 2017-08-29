@@ -1,0 +1,43 @@
+{
+  "name": "exactquery/pleasing-filters",
+  "description": "Filters and Assists with minification, prefixing and compiling of SCSS, CSS, and JS assets.",
+  "keywords": [
+      "sass",
+      "scss",
+      "php",
+      "assetic",
+      "pleasing",
+      "sassc",
+      "minify",
+      "js",
+      "css",
+      "prefix",
+      "vendor prefix"
+  ],
+  "homepage": "https://www.github.com/exactquery/pleasing-filters",
+  "version": "1.0",
+  "authors": [
+      {
+          "name": "Aaron M Jones",
+          "homepage": "http://www.jonesiscoding.com"
+      }
+  ],
+  "license": "MIT",
+  "autoload": {
+      "psr-4": {
+          "XQ\\Pleasing\\Filters\\": "src"
+      }
+  },
+  "require": {
+      "tedivm/jshrink": "~1.1",
+      "exactquery/xq-sassy": "~1.0"
+  },
+  "suggest": {
+    "leafo/scssphp": "Used as a backup to SASSC to compile SCSS.  Will function more slowly than sassc binary.",
+    "symfony/http-foundation": "For header responses with better error checking.",
+    "exactquery/pleasing": "For serving and caching assets processed by Assetic."
+  },
+  "require-dev": {
+    "kriswallsmith/assetic": "~1.3"
+  }
+}
