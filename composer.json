@@ -1,6 +1,6 @@
 {
   "name": "exactquery/pleasing-filters",
-  "description": "Filters and Assists with minification, prefixing and compiling of SCSS, CSS, and JS assets.",
+  "description": "Pleasing and Assetic  filters for prefixing CSS, compiling of SCSS, and minification of and JS assets.",
   "keywords": [
       "sass",
       "scss",
