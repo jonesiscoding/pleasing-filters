@@ -25,7 +25,7 @@
   "license": "MIT",
   "autoload": {
       "psr-4": {
-          "XQ\\Pleasing\\Filters\\": "src"
+          "XQ\\Pleasing\\Filter\\": "src"
       }
   },
   "require": {
