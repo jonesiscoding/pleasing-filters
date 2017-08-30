@@ -33,8 +33,6 @@
       "exactquery/xq-sassy": "~1.0"
   },
   "suggest": {
-    "leafo/scssphp": "Used as a backup to SASSC to compile SCSS.  Will function more slowly than sassc binary.",
-    "symfony/http-foundation": "For header responses with better error checking.",
     "exactquery/pleasing": "For serving and caching assets processed by Assetic."
   },
   "require-dev": {
