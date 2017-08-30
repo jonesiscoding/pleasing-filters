@@ -3,7 +3,7 @@
  * PleasingSassFilter.php
  */
 
-namespace XQ\Pleasing\Assetic\Filter;
+namespace XQ\Pleasing\Filter;
 
 use Assetic\Asset\AssetInterface;
 use Assetic\Filter\FilterInterface;
