@@ -17,7 +17,7 @@ use Assetic\Filter\FilterInterface;
  * prefixes are needed, etc.
  *
  * @author  Aaron M Jones <am@jonesiscoding.com>
- * @version Pleasing Filters v1.0 (https://github.com/exactquery/pleasing-filters)
+ * @version Pleasing Filters v1.0.3 (https://github.com/exactquery/pleasing-filters)
  * @license MIT (https://github.com/exactquery/pleasing-filters/blob/master/LICENSE)
  *
  * Class PleasingPrefixFilter
@@ -117,11 +117,12 @@ class PleasingPrefixFilter implements FilterInterface
    */
   protected function prefixCss( $content )
   {
+    $replaced = array();
     if( preg_match_all( '#(\s+)?([a-z\-]+):\s?([^\!;]+)\s?([\!a-z]+)?;#', $content, $matches, PREG_SET_ORDER ) )
     {
       foreach( $matches as $match )
       {
-        if( strpos( $content, $match[ 0 ] ) !== false )
+        if( strpos( $content, $match[ 0 ] ) !== false && !in_array( $match[ 0 ], $replaced ) )
         {
           $rules    = array();
           $spacing  = $match[ 1 ];
@@ -148,6 +149,7 @@ class PleasingPrefixFilter implements FilterInterface
 
           if( !empty( $rules ) )
           {
+            $replaced[] = $match[ 0 ];
             $content = str_replace( $match[ 0 ], $spacing . implode( $spacing, $rules ), $content );
           }
         }
@@ -305,7 +307,7 @@ class PleasingPrefixFilter implements FilterInterface
    */
   protected function prefixFlexWrap( $value, $extra = null )
   {
-    $prop = array( '-webkit-flex-wrap', '-ms-flex-wrap' );
+    $prop = array( '-webkit-flex-wrap', '-ms-flex-wrap', 'flex-wrap' );
     $val  = array(
         $value,
         ( $value == 'nowrap' ) ? 'none' : $value,
