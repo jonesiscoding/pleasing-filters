@@ -17,7 +17,7 @@ use Assetic\Filter\FilterInterface;
  * prefixes are needed, etc.
  *
  * @author  Aaron M Jones <am@jonesiscoding.com>
- * @version Pleasing Filters v1.0.3 (https://github.com/exactquery/pleasing-filters)
+ * @version Pleasing Filters v1.0.4 (https://github.com/exactquery/pleasing-filters)
  * @license MIT (https://github.com/exactquery/pleasing-filters/blob/master/LICENSE)
  *
  * Class PleasingPrefixFilter
@@ -311,7 +311,7 @@ class PleasingPrefixFilter implements FilterInterface
     $val  = array(
         $value,
         ( $value == 'nowrap' ) ? 'none' : $value,
-
+        $value
     );
 
     return $this->getPrefixRules( $prop, $val, $extra );
