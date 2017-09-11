@@ -40,6 +40,8 @@ class PleasingMinifyFilter implements FilterInterface
     {
       case "css":
       case "less":
+      case "scss":
+      case "sass":
         $output = $this->minifyCSS($content);
         break;
       case "js":
