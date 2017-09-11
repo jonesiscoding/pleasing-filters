@@ -172,7 +172,7 @@ class PleasingMinifyFilter implements FilterInterface
     $output = preg_replace('/((?<!\\\\)\:|\s)\-?0(?:em|cm|mm|in|px|pt|%)/iS', '${1}0', $output);
 
     // Remove Leading Zeros in Floats
-    $output = preg_replace("/0.([0-9]+)/", '.$1', $output);
+    $output = preg_replace("/0\.([0-9]+)/", '.$1', $output);
 
     // Extra whitespace
     $output = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $output);
