@@ -18,7 +18,7 @@ use XQ\Drivers\ScssphpDriver;
  * Class PleasingSassFilter
  *
  * @author  Aaron M Jones <am@jonesiscoding.com>
- * @version Pleasing Filters v1.0.5 (https://github.com/exactquery/pleasing-filters)
+ * @version Pleasing Filters v1.0.6 (https://github.com/exactquery/pleasing-filters)
  * @license MIT (https://github.com/exactquery/pleasing-filters/blob/master/LICENSE)
  *
  * @package XQ\Pleasing\Assetic\Filter
