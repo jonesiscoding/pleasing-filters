@@ -94,11 +94,12 @@ class PleasingMinifyFilter implements FilterInterface
           // Add proper comment encapsulation
           if ( count( $lines ) > 1 )
           {
-            $newComment = "/*!" . PHP_EOL . $newComment . PHP_EOL . " */";
+            $prefix = (substr($newComment,0,3) == '/*!') ? '' : '/*!' . PHP_EOL;
+            $newComment = $prefix . $newComment . PHP_EOL . " */";
           }
           else
           {
-            $newComment = str_replace( "/* ", "/*! ", $newComment );
+            $newComment = str_replace( array("/* ","/** "), "/*! ", $newComment );
           }
 
           if($proxy) { $this->comments[] = $newComment; }
