@@ -17,7 +17,7 @@ use Assetic\Filter\FilterInterface;
  * prefixes are needed, etc.
  *
  * @author  Aaron M Jones <am@jonesiscoding.com>
- * @version Pleasing Filters v1.0.6 (https://github.com/exactquery/pleasing-filters)
+ * @version Pleasing Filters v1.0.8 (https://github.com/exactquery/pleasing-filters)
  * @license MIT (https://github.com/exactquery/pleasing-filters/blob/master/LICENSE)
  *
  * Class PleasingPrefixFilter
