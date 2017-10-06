@@ -39,6 +39,7 @@ class PleasingPrefixFilter implements FilterInterface
       'flex-grow'             => array( '-webkit-flex-grow', '-ms-flex-positive', 'flex-grow' ),
       'flex-shrink'           => array( '-webkit-flex-shrink', '-ms-flex-negative', 'flex-shrink' ),
       'flex-basis'            => array( '-webkit-flex-basis', '-ms-flex-preferred-size', 'flex-basis' ),
+      'flex-wrap'             => array( '-webkit-flex-wrap', '-ms-flex-wrap', 'flex-wrap' ),
       'order'                 => array( '-webkit-order', '-ms-flex-order', 'order' ),
       'transition'            => array( '-webkit-transition', '-o-transition', 'transition' ),
       'box-sizing'            => array( '-webkit-box-sizing', 'box-sizing' ),
@@ -54,16 +55,15 @@ class PleasingPrefixFilter implements FilterInterface
       'grid-template-rows'    => array( '-ms-grid-rows', 'grid-template-rows' ),
       'grid-row-start'        => array( '-ms-grid-row', 'grid-row-start' ),
       'grid-column-start'     => array( '-ms-grid-column', 'grid-column-start' ),
-      'align-self'            => array( '-ms-grid-column-align', 'align-self' ),
       'justify-self'          => array( '-ms-grid-row-align', 'justify-self' )
   );
 
   /** @var array CSS properties where a custom method is used to properly prefix. */
   private $prefixMethod = array(
-      'flex-wrap'       => 'prefixFlexWrap',
       'flex'            => 'prefixFlex',
       'justify-content' => 'prefixJustifyContent',
       'align-items'     => 'prefixAlignItems',
+      'align-content'   => 'prefixAlignContent',
       'align-self'      => 'prefixAlignSelf'
   );
 
@@ -223,6 +223,12 @@ class PleasingPrefixFilter implements FilterInterface
       case 'flex-end':
         $val[] = 'end';
         break;
+      case 'space-between':
+        $val[] = 'justify';
+        break;
+      case 'space-around':
+        $val[] = 'distribute';
+        break;
       default:
         $val[] = $value;
         break;
@@ -244,9 +250,9 @@ class PleasingPrefixFilter implements FilterInterface
   protected function prefixAlignSelf( $value, $extra = null )
   {
     $prop = array(
-        '-webkit-align-items',
+        '-webkit-align-self',
         '-ms-flex-item-align',
-        'align-items'
+        'align-self'
     );
 
     $val[] = $value;
@@ -293,26 +299,6 @@ class PleasingPrefixFilter implements FilterInterface
 
     $prop = array( '-webkit-flex', '-ms-flex', 'flex' );
     $val  = implode( ' ', $parts );
-
-    return $this->getPrefixRules( $prop, $val, $extra );
-  }
-
-  /**
-   * Properly prefixes the 'flex-wrap' property.
-   *
-   * @param string  $value  The value of the property.
-   * @param null    $extra  !important or null
-   *
-   * @return array          The prefixed rules to replace the 'flex-wrap' rule.
-   */
-  protected function prefixFlexWrap( $value, $extra = null )
-  {
-    $prop = array( '-webkit-flex-wrap', '-ms-flex-wrap', 'flex-wrap' );
-    $val  = array(
-        $value,
-        ( $value == 'nowrap' ) ? 'none' : $value,
-        $value
-    );
 
     return $this->getPrefixRules( $prop, $val, $extra );
   }
