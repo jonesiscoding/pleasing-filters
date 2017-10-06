@@ -73,14 +73,14 @@ class PleasingPrefixFilter implements FilterInterface
   /**
    * {@inheritdoc}
    */
-  public function filterLoad( AssetInterface $asset )
+  public function filterDump( AssetInterface $asset )
   {
   }
 
   /**
    * {@inheritdoc}
    */
-  public function filterDump( AssetInterface $asset )
+  public function filterLoad( AssetInterface $asset )
   {
     $assetPath = $asset->getSourcePath();
     $ext       = ( $assetPath ) ? pathinfo( $assetPath, PATHINFO_EXTENSION ) : false;
@@ -118,45 +118,79 @@ class PleasingPrefixFilter implements FilterInterface
   protected function prefixCss( $content )
   {
     $replaced = array();
-    if( preg_match_all( '#(\s+)?([a-z\-]+):\s?([^\!;]+)\s?([\!a-z]+)?;#', $content, $matches, PREG_SET_ORDER ) )
+    if( $rules = $this->getRules( $content ) )
     {
-      foreach( $matches as $match )
+      foreach( $rules as $rule )
       {
-        if( strpos( $content, $match[ 0 ] ) !== false && !in_array( $match[ 0 ], $replaced ) )
+        if( strpos( $content, $rule->getRaw() ) !== false && !in_array( $rule->getRaw(), $replaced ) )
         {
-          $rules    = array();
-          $spacing  = $match[ 1 ];
-          $property = $match[ 2 ];
-          $value    = $match[ 3 ];
-          $extra    = ( !empty( $match[ 4 ] ) ) ? $match[ 4 ] : null;
 
-          if( array_key_exists( $property, $this->prefixValue ) )
+          if( array_key_exists( $rule->getProperty(), $this->prefixValue ) )
           {
-            if( array_key_exists( $value, $this->prefixValue[ $property ] ) )
+            if( array_key_exists( $rule->getValue(), $this->prefixValue[ $rule->getProperty() ] ) )
             {
-              $rules = $this->getPrefixRules( $property, $this->prefixValue[ $property ][ $value ], $extra );
+              $prefixed = $this->getPrefixRules( $rule->getProperty(), $this->prefixValue[ $rule->getProperty() ][ $rule->getValue() ], $rule->getBang() );
             }
           }
-          elseif( array_key_exists( $property, $this->prefixProperty ) )
+          elseif( array_key_exists( $rule->getProperty(), $this->prefixProperty ) )
           {
-            $rules = $this->getPrefixRules( $this->prefixProperty[ $property ], $value, $extra );
+            $prefixed = $this->getPrefixRules( $this->prefixProperty[ $rule->getProperty() ], $rule->getValue(), $rule->getBang() );
           }
-          elseif( array_key_exists( $property, $this->prefixMethod ) )
+          elseif( array_key_exists( $rule->getProperty(), $this->prefixMethod ) )
           {
-            $method = $this->prefixMethod[ $property ];
-            $rules  = $this->$method( $value, $extra );
+            $method = $this->prefixMethod[ $rule->getProperty() ];
+            $prefixed  = $this->$method( $rule->getValue(), $rule->getBang() );
           }
 
-          if( !empty( $rules ) )
+          if( !empty( $prefixed ) )
           {
-            $replaced[] = $match[ 0 ];
-            $content = str_replace( $match[ 0 ], $spacing . implode( $spacing, $rules ), $content );
+            $newRules = array();
+            foreach( $prefixed as $pRule )
+            {
+              /** @var CssRule $pRule */
+              $pRule->setTemplate( $rule->getTemplate() );
+              $newRules[] = $pRule->getOutput();
+            }
+
+            $replaced[] = $rule->getRaw();
+            $replacement = str_replace( $rule->getOutput(), implode( "\n", $newRules ), $rule->getRaw() );
+            $content = str_replace($rule->getRaw(),$replacement,$content);
+
           }
         }
       }
     }
 
     return $content;
+  }
+
+  /**
+   * @param $content
+   *
+   * @return CssRule[]
+   */
+  protected function getRules( $content )
+  {
+    $rules = array();
+    if( preg_match_all( '#{((?:[^{}]++|(?R))*+)}#', $content, $groups, PREG_SET_ORDER ) )
+    {
+      foreach( $groups as $group )
+      {
+        if( strpos( $group[ 1 ], '{' ) === false )
+        {
+          if( $rule = CssRule::fromString( $group[ 1 ] ) )
+          {
+            $rules[] = $rule;
+          }
+        }
+        else
+        {
+          $rules = array_merge( $rules, $this->getRules( $group[ 1 ] ) );
+        }
+      }
+    }
+
+    return (!empty($rules)) ? $rules : null;
   }
 
   // endregion ///////////////////////////////////////////// End Main Method
@@ -377,14 +411,12 @@ class PleasingPrefixFilter implements FilterInterface
 
     $property = null;
     $value    = null;
-    $space    = ( empty( $extra ) ) ? '' : ' ';
-
     do
     {
       $property = ( !empty( $properties ) ) ? array_shift( $properties ) : $property;
       $value    = ( !empty( $values ) ) ? array_shift( $values ) : $property;
 
-      $rules[] = sprintf( "%s: %s%s%s;", $property, $value, $space, $extra );
+      $rules[] = new CssRule( $property, $value, $extra );
     }
     while( !empty( $properties ) && !empty( $values ) );
 
