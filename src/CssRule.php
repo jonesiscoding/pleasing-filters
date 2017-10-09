@@ -11,7 +11,7 @@ namespace XQ\Pleasing\Filter;
  * Class CssRule
  *
  * @author  Aaron M Jones <am@jonesiscoding.com>
- * @version Pleasing Filters v1.0.8 (https://github.com/exactquery/pleasing-filters)
+ * @version Pleasing Filters v1.0.9 (https://github.com/exactquery/pleasing-filters)
  * @license MIT (https://github.com/exactquery/pleasing-filters/blob/master/LICENSE)
  *
  * @package XQ\Pleasing\Filter

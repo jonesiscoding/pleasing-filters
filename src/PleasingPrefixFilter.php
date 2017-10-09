@@ -17,7 +17,7 @@ use Assetic\Filter\FilterInterface;
  * prefixes are needed, etc.
  *
  * @author  Aaron M Jones <am@jonesiscoding.com>
- * @version Pleasing Filters v1.0.8 (https://github.com/exactquery/pleasing-filters)
+ * @version Pleasing Filters v1.0.9 (https://github.com/exactquery/pleasing-filters)
  * @license MIT (https://github.com/exactquery/pleasing-filters/blob/master/LICENSE)
  *
  * Class PleasingPrefixFilter
@@ -122,6 +122,7 @@ class PleasingPrefixFilter implements FilterInterface
     {
       foreach( $rules as $rule )
       {
+        $prefixed = array();
         if( strpos( $content, $rule->getRaw() ) !== false && !in_array( $rule->getRaw(), $replaced ) )
         {
 
@@ -178,9 +179,14 @@ class PleasingPrefixFilter implements FilterInterface
       {
         if( strpos( $group[ 1 ], '{' ) === false )
         {
-          if( $rule = CssRule::fromString( $group[ 1 ] ) )
+          $set = preg_split( '#(\r|\n)#', $group[ 1 ] );
+
+          foreach( $set as $s )
           {
-            $rules[] = $rule;
+            if( !empty($s) && $rule = CssRule::fromString( $s ) )
+            {
+              $rules[] = $rule;
+            }
           }
         }
         else
