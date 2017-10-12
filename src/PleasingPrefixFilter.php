@@ -14,7 +14,7 @@ use Assetic\Filter\FilterInterface;
  * versions.
  *
  * This filter is simplistic in nature, and does not do fancy things like removing unneeded prefixes, looking up which
- * prefixes are needed, etc.
+ * prefixes are needed, etc.  It is intended for situations in which you do not have the ability to use autoprefixer.
  *
  * @author  Aaron M Jones <am@jonesiscoding.com>
  * @version Pleasing Filters v1.0.10 (https://github.com/exactquery/pleasing-filters)
