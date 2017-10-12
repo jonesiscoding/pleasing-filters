@@ -27,8 +27,6 @@ class CssRule
   /** @var string */
   protected $raw;
   /** @var  string */
-  protected $rule;
-  /** @var  string */
   protected $template;
   /** @var  string */
   protected $value;
@@ -65,9 +63,17 @@ class CssRule
           ->setIndent( ( isset( $matches[ 1 ] ) ) ? strlen( $matches[ 1 ] ) : 0 )
       ;
 
-      $template = preg_replace( "#(" . $rule->getProperty() . "([\s:]+))#", "%s$2", $matches[ 0 ].';' );
-      $template = preg_replace( "#(:([\s]+))" . $rule->getValue() . "#", "$1%s", $template );
-      $template = preg_replace( "#([^!]+)" . $rule->getBang() . ";#", "$1%s;", $template );
+      // Replace Property in Template
+      $pattern  = preg_quote( "(" . $rule->getProperty() . "([\s:]+))", "#" );
+      $template = preg_replace( "#" . $pattern . "#", "%s$2", $matches[ 0 ] . ';' );
+
+      // Replace Value in Template
+      $pattern  = preg_quote( "(:([\s]+))" . $rule->getValue(), "#" );
+      $template = preg_replace( "#" . $pattern . "#", "$1%s", $template );
+
+      // Replace Bang in Template
+      $pattern  = preg_quote( "([^!]+)" . $rule->getBang() . ";", "#" );
+      $template = preg_replace( "#" . $pattern . "#", "$1%s;", $template );
 
       return $rule->setTemplate( $template );
     }
@@ -187,18 +193,6 @@ class CssRule
   public function setRaw( $raw )
   {
     $this->raw = $raw;
-
-    return $this;
-  }
-
-  /**
-   * @param string $rule
-   *
-   * @return CssRule
-   */
-  public function setRule( $rule )
-  {
-    $this->rule = $rule;
 
     return $this;
   }
