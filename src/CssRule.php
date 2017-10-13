@@ -64,16 +64,17 @@ class CssRule
       ;
 
       // Replace Property in Template
-      $pattern  = preg_quote( "(" . $rule->getProperty() . "([\s:]+))", "#" );
-      $template = preg_replace( "#" . $pattern . "#", "%s$2", $matches[ 0 ] . ';' );
+      $pattern  = "#(" . preg_quote( $rule->getProperty(), "#" ) . "([\s:]+))#";
+
+      $template = preg_replace( $pattern, "%s$2", $matches[ 0 ] . ';' );
 
       // Replace Value in Template
-      $pattern  = preg_quote( "(:([\s]+))" . $rule->getValue(), "#" );
-      $template = preg_replace( "#" . $pattern . "#", "$1%s", $template );
+      $pattern = "#(:([\s]+))" . preg_quote( $rule->getValue(), "#" ) . "#";
+      $template = preg_replace(  $pattern, "$1%s", $template );
 
       // Replace Bang in Template
-      $pattern  = preg_quote( "([^!]+)" . $rule->getBang() . ";", "#" );
-      $template = preg_replace( "#" . $pattern . "#", "$1%s;", $template );
+      $pattern  = "#([^!]+)" . preg_quote($rule->getBang(), "#") . ";#";
+      $template = preg_replace( $pattern, "$1%s;", $template );
 
       return $rule->setTemplate( $template );
     }
