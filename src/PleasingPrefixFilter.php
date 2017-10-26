@@ -49,6 +49,7 @@ class PleasingPrefixFilter implements FilterInterface
       'column-rule'           => array( '-webkit-column-rule', 'column-rule' ),
       'user-select'           => array( '-webkit-user-select', '-moz-user-select', '-ms-user-select', 'user-select' ),
       'transform'             => array( '-webkit-transform', '-ms-transform', 'transform' ),
+      'transform-origin'      => array( '-webkit-transform-origin', '-ms-transform-origin', 'transform-origin' ),
       'appearance'            => array( '-webkit-appearance', '-moz-appearance', 'appearance' ),
       'filter'                => array( '-webkit-filter', 'filter' ),
       'grid-template-columns' => array( '-ms-grid-columns', 'grid-template-columns' ),
