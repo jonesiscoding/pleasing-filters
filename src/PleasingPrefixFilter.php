@@ -17,7 +17,7 @@ use Assetic\Filter\FilterInterface;
  * prefixes are needed, etc.  It is intended for situations in which you do not have the ability to use autoprefixer.
  *
  * @author  Aaron M Jones <am@jonesiscoding.com>
- * @version Pleasing Filters v1.0.12 (https://github.com/exactquery/pleasing-filters)
+ * @version Pleasing Filters v1.0.13 (https://github.com/exactquery/pleasing-filters)
  * @license MIT (https://github.com/exactquery/pleasing-filters/blob/master/LICENSE)
  *
  * Class PleasingPrefixFilter
@@ -28,8 +28,10 @@ class PleasingPrefixFilter implements FilterInterface
   /** @var array CSS Properties where the value is prefixed. */
   private $prefixValue = array(
       'display' => array(
-          'flex'        => array( '-webkit-flex', '-ms-flexbox', 'flex' ),
-          'inline-flex' => array( '-webkit-inline-box', '-ms-inline-flexbox', 'inline-flex' ),
+          'flex'           => array( '-webkit-flex', '-ms-flexbox', 'flex' ),
+          'inline-flex'    => array( '-webkit-inline-box', '-ms-inline-flexbox', 'inline-flex' ),
+          'fill-available' => array( '-webkit-fill-available', '-moz-available', 'fill-available' ),
+          'fit-content'    => array( '-webkit-fit-content', '-moz-fit-content', 'fit-content' )
       )
   );
 
@@ -56,7 +58,7 @@ class PleasingPrefixFilter implements FilterInterface
       'grid-template-rows'    => array( '-ms-grid-rows', 'grid-template-rows' ),
       'grid-row-start'        => array( '-ms-grid-row', 'grid-row-start' ),
       'grid-column-start'     => array( '-ms-grid-column', 'grid-column-start' ),
-      'justify-self'          => array( '-ms-grid-row-align', 'justify-self' )
+      'justify-self'          => array( '-ms-grid-row-align', 'justify-self' ),
   );
 
   /** @var array CSS properties where a custom method is used to properly prefix. */
