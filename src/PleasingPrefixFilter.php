@@ -17,7 +17,7 @@ use Assetic\Filter\FilterInterface;
  * prefixes are needed, etc.  It is intended for situations in which you do not have the ability to use autoprefixer.
  *
  * @author  Aaron M Jones <am@jonesiscoding.com>
- * @version Pleasing Filters v1.0.13 (https://github.com/exactquery/pleasing-filters)
+ * @version Pleasing Filters v1.0.14 (https://github.com/exactquery/pleasing-filters)
  * @license MIT (https://github.com/exactquery/pleasing-filters/blob/master/LICENSE)
  *
  * Class PleasingPrefixFilter
@@ -42,6 +42,7 @@ class PleasingPrefixFilter implements FilterInterface
       'flex-shrink'           => array( '-webkit-flex-shrink', '-ms-flex-negative', 'flex-shrink' ),
       'flex-basis'            => array( '-webkit-flex-basis', '-ms-flex-preferred-size', 'flex-basis' ),
       'flex-wrap'             => array( '-webkit-flex-wrap', '-ms-flex-wrap', 'flex-wrap' ),
+      'flex-flow'             => array( '-webkit-flex-flow', '-ms-flex-flow', 'flex-flow' ),
       'order'                 => array( '-webkit-order', '-ms-flex-order', 'order' ),
       'transition'            => array( '-webkit-transition', '-o-transition', 'transition' ),
       'box-sizing'            => array( '-webkit-box-sizing', 'box-sizing' ),
