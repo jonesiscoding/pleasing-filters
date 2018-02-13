@@ -17,7 +17,7 @@ use Assetic\Filter\FilterInterface;
  * prefixes are needed, etc.  It is intended for situations in which you do not have the ability to use autoprefixer.
  *
  * @author  Aaron M Jones <am@jonesiscoding.com>
- * @version Pleasing Filters v1.0.14 (https://github.com/exactquery/pleasing-filters)
+ * @version Pleasing Filters v1.0.15 (https://github.com/exactquery/pleasing-filters)
  * @license MIT (https://github.com/exactquery/pleasing-filters/blob/master/LICENSE)
  *
  * Class PleasingPrefixFilter
@@ -29,10 +29,20 @@ class PleasingPrefixFilter implements FilterInterface
   private $prefixValue = array(
       'display' => array(
           'flex'           => array( '-webkit-flex', '-ms-flexbox', 'flex' ),
-          'inline-flex'    => array( '-webkit-inline-box', '-ms-inline-flexbox', 'inline-flex' ),
+          'inline-flex'    => array( '-webkit-inline-box', '-ms-inline-flexbox', 'inline-flex' )
+      ),
+      'width' => array(
           'fill-available' => array( '-webkit-fill-available', '-moz-available', 'fill-available' ),
           'fit-content'    => array( '-webkit-fit-content', '-moz-fit-content', 'fit-content' )
-      )
+      ),
+      'min-width' => array(
+          'fill-available' => array( '-webkit-fill-available', '-moz-available', 'fill-available' ),
+          'fit-content'    => array( '-webkit-fit-content', '-moz-fit-content', 'fit-content' )
+      ),
+      'max-width' => array(
+          'fill-available' => array( '-webkit-fill-available', '-moz-available', 'fill-available' ),
+          'fit-content'    => array( '-webkit-fit-content', '-moz-fit-content', 'fit-content' )
+      ),
   );
 
   /** @var array CSS Properties where the property is prefixed. */
