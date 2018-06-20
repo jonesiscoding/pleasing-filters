@@ -17,8 +17,8 @@ use Assetic\Filter\FilterInterface;
  * prefixes are needed, etc.  It is intended for situations in which you do not have the ability to use autoprefixer.
  *
  * @author  Aaron M Jones <am@jonesiscoding.com>
- * @version Pleasing Filters v1.0.16 (https://github.com/exactquery/pleasing-filters)
- * @license MIT (https://github.com/exactquery/pleasing-filters/blob/master/LICENSE)
+ * @version Pleasing Filters v1.0.16 (https://github.com/jonesiscoding/pleasing-filters)
+ * @license MIT (https://github.com/jonesiscoding/pleasing-filters/blob/master/LICENSE)
  *
  * Class PleasingPrefixFilter
  * @package XQ\Pleasing\Filter
