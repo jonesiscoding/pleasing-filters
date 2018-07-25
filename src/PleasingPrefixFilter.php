@@ -17,7 +17,7 @@ use Assetic\Filter\FilterInterface;
  * prefixes are needed, etc.  It is intended for situations in which you do not have the ability to use autoprefixer.
  *
  * @author  Aaron M Jones <am@jonesiscoding.com>
- * @version Pleasing Filters v1.0.16 (https://github.com/jonesiscoding/pleasing-filters)
+ * @version Pleasing Filters v1.0.17 (https://github.com/jonesiscoding/pleasing-filters)
  * @license MIT (https://github.com/jonesiscoding/pleasing-filters/blob/master/LICENSE)
  *
  * Class PleasingPrefixFilter
@@ -29,6 +29,7 @@ class PleasingPrefixFilter implements FilterInterface
   private $prefixValue = array(
       'display' => array(
           'flex'           => array( '-webkit-flex', '-ms-flexbox', 'flex' ),
+          'grid'           => array( '-ms-grid', 'grid' ),
           'inline-flex'    => array( '-webkit-inline-flex', '-ms-inline-flexbox', 'inline-flex' )
       ),
       'width' => array(
@@ -69,6 +70,8 @@ class PleasingPrefixFilter implements FilterInterface
       'grid-template-rows'    => array( '-ms-grid-rows', 'grid-template-rows' ),
       'grid-row-start'        => array( '-ms-grid-row', 'grid-row-start' ),
       'grid-column-start'     => array( '-ms-grid-column', 'grid-column-start' ),
+      'grid-column'           => array( '-ms-grid-column', 'grid-column' ),
+      'grid-row'              => array( '-ms-grid-row', 'grid-row' ),
       'justify-self'          => array( '-ms-grid-row-align', 'justify-self' ),
   );
 
