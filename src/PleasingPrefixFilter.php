@@ -17,7 +17,7 @@ use Assetic\Filter\FilterInterface;
  * prefixes are needed, etc.  It is intended for situations in which you do not have the ability to use autoprefixer.
  *
  * @author  Aaron M Jones <am@jonesiscoding.com>
- * @version Pleasing Filters v1.0.17 (https://github.com/jonesiscoding/pleasing-filters)
+ * @version Pleasing Filters v1.0.18 (https://github.com/jonesiscoding/pleasing-filters)
  * @license MIT (https://github.com/jonesiscoding/pleasing-filters/blob/master/LICENSE)
  *
  * Class PleasingPrefixFilter
@@ -25,25 +25,27 @@ use Assetic\Filter\FilterInterface;
  */
 class PleasingPrefixFilter implements FilterInterface
 {
+  const FIT_FILL = array(
+      'fill-available' => array( '-webkit-fill-available', '-moz-available', 'fill-available' ),
+      'fit-content'    => array( '-webkit-fit-content', '-moz-fit-content', 'fit-content' ),
+      'max-content'    => array( '-webkit-max-content', '-moz-max-content', 'intrinsic', 'max-content' ),
+      'min-content'    => array( '-webkit-min-content', '-moz-min-content', 'min-intrinsic', 'min-content' ),
+  );
+
   /** @var array CSS Properties where the value is prefixed. */
   private $prefixValue = array(
-      'display' => array(
-          'flex'           => array( '-webkit-flex', '-ms-flexbox', 'flex' ),
-          'grid'           => array( '-ms-grid', 'grid' ),
-          'inline-flex'    => array( '-webkit-inline-flex', '-ms-inline-flexbox', 'inline-flex' )
+      'display'    => array(
+          'flex'        => array( '-webkit-flex', '-ms-flexbox', 'flex' ),
+          'grid'        => array( '-ms-grid', 'grid' ),
+          'inline-grid' => array( '-ms-inline-grid', 'inline-grid' ),
+          'inline-flex' => array( '-webkit-inline-flex', '-ms-inline-flexbox', 'inline-flex' )
       ),
-      'width' => array(
-          'fill-available' => array( '-webkit-fill-available', '-moz-available', 'fill-available' ),
-          'fit-content'    => array( '-webkit-fit-content', '-moz-fit-content', 'fit-content' )
-      ),
-      'min-width' => array(
-          'fill-available' => array( '-webkit-fill-available', '-moz-available', 'fill-available' ),
-          'fit-content'    => array( '-webkit-fit-content', '-moz-fit-content', 'fit-content' )
-      ),
-      'max-width' => array(
-          'fill-available' => array( '-webkit-fill-available', '-moz-available', 'fill-available' ),
-          'fit-content'    => array( '-webkit-fit-content', '-moz-fit-content', 'fit-content' )
-      ),
+      'height'     => self::FIT_FILL,
+      'max-height' => self::FIT_FILL,
+      'min-height' => self::FIT_FILL,
+      'max-width'  => self::FIT_FILL,
+      'min-width'  => self::FIT_FILL,
+      'width'      => self::FIT_FILL,
   );
 
   /** @var array CSS Properties where the property is prefixed. */
