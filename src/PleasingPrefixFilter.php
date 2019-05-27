@@ -144,22 +144,18 @@ class PleasingPrefixFilter implements FilterInterface
         $prefixed = array();
         if( strpos( $content, $rule->getRaw() ) !== false && !in_array( $rule->getRaw(), $replaced ) )
         {
-
-          if( array_key_exists( $rule->getProperty(), $this->prefixValue ) )
-          {
-            if( array_key_exists( $rule->getValue(), $this->prefixValue[ $rule->getProperty() ] ) )
-            {
-              $prefixed = $this->getPrefixRules( $rule->getProperty(), $this->prefixValue[ $rule->getProperty() ][ $rule->getValue() ], $rule->getBang() );
-            }
-          }
-          elseif( array_key_exists( $rule->getProperty(), $this->prefixProperty ) )
-          {
-            $prefixed = $this->getPrefixRules( $this->prefixProperty[ $rule->getProperty() ], $rule->getValue(), $rule->getBang() );
-          }
-          elseif( array_key_exists( $rule->getProperty(), $this->prefixMethod ) )
+          if( array_key_exists( $rule->getProperty(), $this->prefixMethod ) )
           {
             $method = $this->prefixMethod[ $rule->getProperty() ];
             $prefixed  = $this->$method( $rule->getValue(), $rule->getBang() );
+          }
+          elseif( $prefixes = $this->getPrefixesForValuesInProperty( $rule->getValue(), $rule->getProperty() ) )
+          {
+            $prefixed = $this->getPrefixRules( $rule->getProperty(), $prefixes, $rule->getBang() );
+          }
+          elseif( $prefixes = $this->getPrefixesForProperty( $rule->getProperty() ) )
+          {
+            $prefixed = $this->getPrefixRules( $prefixes, $rule->getValue(), $rule->getBang() );
           }
 
           if( !empty( $prefixed ) )
@@ -400,6 +396,36 @@ class PleasingPrefixFilter implements FilterInterface
 
     return $this->getPrefixRules( $prop, $val, $extra );
   }
+
+  // region //////////////////////////////////////////////// Configuration Methods
+
+  protected function getPrefixesForProperty( $property )
+  {
+    if( array_key_exists( $property, $this->prefixProperty ) )
+    {
+      return $this->prefixProperty[ $property ];
+    }
+
+    return null;
+  }
+
+  /**
+   * @param string $val
+   * @param string $prop
+   *
+   * @return array|null
+   */
+  protected function getPrefixesForValuesInProperty( $val, $prop )
+  {
+    if( array_key_exists( $prop, $this->prefixValue ) && array_key_exists( $val, $this->prefixValue[ $prop ] ) )
+    {
+      return $this->prefixValue[ $prop ][ $val ];
+    }
+
+    return null;
+  }
+
+  // endregion ///////////////////////////////////////////// Configuration Methods
 
   // region //////////////////////////////////////////////// Private Helper Methods
 
