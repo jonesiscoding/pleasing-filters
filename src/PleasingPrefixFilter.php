@@ -33,7 +33,7 @@ class PleasingPrefixFilter implements FilterInterface
   );
 
   /** @var array CSS Properties where the value is prefixed. */
-  private $prefixValue = array(
+  const PREFIX_VALUES = array(
       'display'    => array(
           'flex'        => array( '-webkit-flex', '-ms-flexbox', 'flex' ),
           'grid'        => array( '-ms-grid', 'grid' ),
@@ -48,8 +48,10 @@ class PleasingPrefixFilter implements FilterInterface
       'width'      => self::FIT_FILL,
   );
 
+  private $prefixValue = array();
+
   /** @var array CSS Properties where the property is prefixed. */
-  private $prefixProperty = array(
+  const PREFIX_PROPERTY = array(
       'flex-direction'        => array( '-webkit-flex-direction', '-ms-flex-direction', 'flex-direction' ),
       'flex-grow'             => array( '-webkit-flex-grow', '-ms-flex-positive', 'flex-grow' ),
       'flex-shrink'           => array( '-webkit-flex-shrink', '-ms-flex-negative', 'flex-shrink' ),
@@ -76,6 +78,8 @@ class PleasingPrefixFilter implements FilterInterface
       'grid-row'              => array( '-ms-grid-row', 'grid-row' ),
       'justify-self'          => array( '-ms-grid-row-align', 'justify-self' ),
   );
+
+  private $prefixProperty = array();
 
   /** @var array CSS properties where a custom method is used to properly prefix. */
   private $prefixMethod = array(
@@ -405,6 +409,10 @@ class PleasingPrefixFilter implements FilterInterface
     {
       return $this->prefixProperty[ $property ];
     }
+    elseif( array_key_exists( $property, self::PREFIX_PROPERTY ) )
+    {
+      return self::PREFIX_PROPERTY[ $property ];
+    }
 
     return null;
   }
@@ -421,11 +429,123 @@ class PleasingPrefixFilter implements FilterInterface
     {
       return $this->prefixValue[ $prop ][ $val ];
     }
+    elseif( array_key_exists( $prop, self::PREFIX_VALUES ) && array_key_exists( $val, self::PREFIX_VALUES[ $prop ] ) )
+    {
+      return self::PREFIX_VALUES[ $prop ][ $val ];
+    }
 
     return null;
   }
 
-  // endregion ///////////////////////////////////////////// Configuration Methods
+  /**
+   * @param array $prefixProperties
+   *
+   * @return PleasingPrefixFilter
+   */
+  public function setPrefixProperties( $prefixProperties )
+  {
+    foreach( $prefixProperties as $property => $prefixes )
+    {
+      $defaults = array_key_exists( $property, self::PREFIX_PROPERTY ) ? self::PREFIX_PROPERTY[$property] : array();
+      foreach( $prefixes as $prefix )
+      {
+        $tPrefixes = array();
+
+        // Deal with wildcards
+        if( substr($prefix,-1,1) === '*' )
+        {
+          $pre = substr( $prefix, 0, -1 );
+          $len = strlen($pre);
+          foreach( $defaults as $default )
+          {
+            if( substr( $default, 0, $len ) === $pre )
+            {
+              $tPrefixes[] = $default;
+            }
+          }
+        }
+        elseif( $this->preconfigured )
+        {
+          if( in_array( $prefix, $defaults ) )
+          {
+            $tPrefixes[] = $prefix;
+          }
+        }
+        else
+        {
+          $tPrefixes[] = $prefix;
+        }
+      }
+
+      // If we have prefixes, add it to the property.
+      if( !empty( $tPrefixes ) )
+      {
+        if( !in_array( $property, $tPrefixes ) )
+        {
+          $tPrefixes[] = $property;
+        }
+
+        $this->prefixProperty[ $property ] = $tPrefixes;
+      }
+    }
+
+    return $this;
+  }
+
+  /**
+   * @param array $prefixValue
+   *
+   * @return PleasingPrefixFilter
+   */
+  public function setPrefixValue( array $prefixValue )
+  {
+    foreach( $prefixValue as $prop => $values )
+    {
+      $propDefaults = array_key_exists($prop,self::PREFIX_PROPERTY) ? self::PREFIX_PROPERTY[$prop] : array();
+      foreach( $values as $value => $prefixes )
+      {
+        $defaults = array_key_exists($value,$propDefaults) ? $propDefaults[ $value ] : array();
+        foreach( $prefixes as $prefix )
+        {
+          if( substr($prefix,-1,1) === '*' )
+          {
+            $pre = substr( $prefix, 0, -1 );
+            $len = strlen($pre);
+            foreach( $defaults as $default )
+            {
+              if( substr( $default, 0, $len ) === $pre )
+              {
+                $tPrefixes[] = $default;
+              }
+            }
+          }
+          elseif( $this->preconfigured )
+          {
+            if( in_array( $prefix, $defaults ) )
+            {
+              $tPrefixes[] = $prefix;
+            }
+          }
+          else
+          {
+            $tPrefixes[] = $prefix;
+          }
+
+          if( !empty( $tPrefixes ) )
+          {
+            if( !in_array( $value, $tPrefixes ) )
+            {
+              $tPrefixes[] = $prop;
+            }
+
+            $this->prefixValue[ $prop ][ $value ] = $tPrefixes;
+          }
+        }
+      }
+    }
+
+    return $this;
+  }
 
   // region //////////////////////////////////////////////// Private Helper Methods
 
