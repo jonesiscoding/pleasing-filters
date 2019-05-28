@@ -551,7 +551,7 @@ class PleasingPrefixFilter implements FilterInterface
   // region //////////////////////////////////////////////// Private Helper Methods
 
   /**
-   * Interpets the given parameters into a set of CSS rules to insert in replacement of the rule being evaluated.
+   * Interprets the given parameters into a set of CSS rules to insert in replacement of the rule being evaluated.
    *
    * The number of properties and values given will be matched up to the other.  For instance, if one property
    * is given, it will be duplicated to match the count of the number of values given and vice versa.
