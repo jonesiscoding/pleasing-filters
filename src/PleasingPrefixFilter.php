@@ -77,6 +77,10 @@ class PleasingPrefixFilter implements FilterInterface
       'grid-column'           => array( '-ms-grid-column', 'grid-column' ),
       'grid-row'              => array( '-ms-grid-row', 'grid-row' ),
       'justify-self'          => array( '-ms-grid-row-align', 'justify-self' ),
+      'justify-content'       => array( '-ms-flex-pack', '-webkit-justify-content', 'justify-content' ),
+      'align-items'           => array( '-ms-flex-align', '-webkit-align-items', 'align-items' ),
+      'align-self'            => array( '-ms-flex-item-align', '-webkit-align-self', 'align-self' ),
+      'align-content'         => array( '-ms-flex-line-pack', '-webkit-align-content', 'align-content' )
   );
 
   private $prefixProperty = array();
@@ -233,29 +237,20 @@ class PleasingPrefixFilter implements FilterInterface
    */
   protected function prefixAlignItems( $value, $extra = null )
   {
-    $prop[] = '-ms-flex-align';
+    $rules = $this->prefixFlexProperties( 'align-items', $value, $extra );
 
-    switch( $value )
+    foreach( $rules as $rule )
     {
-      case 'flex-start':
-        $val[] = 'start';
-        break;
-      case 'flex-end':
-        $val[] = 'end';
-        break;
-      default:
-        $val[]  = $value;
-        $prop[] = '-ms-grid-row-align';
-        $val[]  = 'center';
-        break;
+      if( '-ms-flex-align' == $rule->getProperty() )
+      {
+        if( 'start' !== $rule->getValue() && 'end' !== $rule->getValue() )
+        {
+          $rules[] = new CssRule( '-ms-flex-align', 'center', $rule->getBang() );
+        }
+      }
     }
 
-    $prop[] = '-webkit-align-items';
-    $prop[] = 'align-items';
-    $val[]  = $value;
-    $val[]  = $value;
-
-    return $this->getPrefixRules( $prop, $val, $extra );
+    return $rules;
   }
 
   /**
@@ -268,35 +263,7 @@ class PleasingPrefixFilter implements FilterInterface
    */
   protected function prefixAlignContent( $value, $extra = null )
   {
-    $prop = array(
-        '-webkit-align-content',
-        '-ms-flex-line-pack',
-        'align-content'
-    );
-
-    $val[] = $value;
-    switch( $value )
-    {
-      case 'flex-start':
-        $val[] = 'start';
-        break;
-      case 'flex-end':
-        $val[] = 'end';
-        break;
-      case 'space-between':
-        $val[] = 'justify';
-        break;
-      case 'space-around':
-        $val[] = 'distribute';
-        break;
-      default:
-        $val[] = $value;
-        break;
-    }
-
-    $val[] = $value;
-
-    return $this->getPrefixRules( $prop, $val, $extra );
+    return $this->prefixFlexProperties( 'align-content', $value, $extra );
   }
 
   /**
@@ -309,29 +276,7 @@ class PleasingPrefixFilter implements FilterInterface
    */
   protected function prefixAlignSelf( $value, $extra = null )
   {
-    $prop = array(
-        '-webkit-align-self',
-        '-ms-flex-item-align',
-        'align-self'
-    );
-
-    $val[] = $value;
-    switch( $value )
-    {
-      case 'flex-start':
-        $val[] = 'start';
-        break;
-      case 'flex-end':
-        $val[] = 'end';
-        break;
-      default:
-        $val[] = $value;
-        break;
-    }
-
-    $val[] = $value;
-
-    return $this->getPrefixRules( $prop, $val, $extra );
+    return $this->prefixFlexProperties( 'align-self', $value, $extra );
   }
 
   /**
@@ -357,7 +302,7 @@ class PleasingPrefixFilter implements FilterInterface
       }
     }
 
-    $prop = array( '-webkit-flex', '-ms-flex', 'flex' );
+    $prop = $this->getPrefixesForProperty( 'flex' );
     $val  = implode( ' ', $parts );
 
     return $this->getPrefixRules( $prop, $val, $extra );
@@ -373,33 +318,45 @@ class PleasingPrefixFilter implements FilterInterface
    */
   protected function prefixJustifyContent( $value, $extra = null )
   {
-    $prop = array(
-        '-webkit-justify-content',
-        '-ms-flex-pack',
-        'justify-content'
-    );
+    return $this->prefixFlexProperties( 'justify-content', $value, $extra );
+  }
 
-    $val[] = $value;
-    switch( $value )
+  /**
+   * Prefixes a flexbox alignment property, such as align-* and justify-*
+   *
+   * @param string $property
+   * @param string $value
+   * @param null   $extra
+   *
+   * @return CssRule[]
+   */
+  protected function prefixFlexProperties( $property, $value, $extra = null )
+  {
+    $properties = $this->getPrefixesForProperty( $property );
+    $values     = array();
+
+    $getValue = function( $prop, $val ) use ( $property ) {
+      // Short Circuit to not alter for original property.
+      if( $property == $prop ) { return $val; }
+
+      // Set up matches array - slightly different for 'justify' properties.
+      $matches = array( 'flex-start' => 'start', 'flex-end' => 'end' );
+      if( strpos( $val, 'justify' ) !== false )
+      {
+        $matches[ 'space-between' ] = 'justify';
+        $matches[ 'space-around' ]  = 'distribute';
+      }
+
+      return ( !empty( $matches[ $val ] ) ) ? $matches[ $val ] : $val;
+    };
+
+    // Loop through properties and add appropriate values
+    foreach( $properties as $tProp )
     {
-      case 'flex-start':
-        $val[] = 'start';
-        break;
-      case 'flex-end':
-        $val[] = 'end';
-        break;
-      case 'space-between':
-        $val[] = 'justify';
-        break;
-      case 'space-around':
-        $val[] = 'distribute';
-        break;
-      default:
-        $val[] = $value;
+      $values[] = $getValue( $tProp, $value );
     }
-    $val[] = $value;
 
-    return $this->getPrefixRules( $prop, $val, $extra );
+    return $this->getPrefixRules( $properties, $values, $extra );
   }
 
   // region //////////////////////////////////////////////// Configuration Methods
