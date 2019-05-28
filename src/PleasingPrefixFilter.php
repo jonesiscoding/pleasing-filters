@@ -90,6 +90,7 @@ class PleasingPrefixFilter implements FilterInterface
       'align-self'      => 'prefixAlignSelf'
   );
 
+  private $preconfigured = true;
 
   // region //////////////////////////////////////////////// Filter Interface Methods
 
