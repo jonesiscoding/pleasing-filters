@@ -233,7 +233,7 @@ class PleasingPrefixFilter implements FilterInterface
    * @param string  $value  The value of the property.
    * @param null    $extra  !important or null
    *
-   * @return array          The prefixed rules to replace the 'align-items' rule.
+   * @return CssRule[]      The prefixed rules to replace the 'align-items' rule.
    */
   protected function prefixAlignItems( $value, $extra = null )
   {
@@ -259,7 +259,7 @@ class PleasingPrefixFilter implements FilterInterface
    * @param string  $value  The value of the property.
    * @param null    $extra  !important or null
    *
-   * @return array          The prefixed rules to replace the 'align-content' rule.
+   * @return CssRule[]      The prefixed rules to replace the 'align-content' rule.
    */
   protected function prefixAlignContent( $value, $extra = null )
   {
@@ -272,7 +272,7 @@ class PleasingPrefixFilter implements FilterInterface
    * @param string  $value  The value of the property.
    * @param null    $extra  !important or null
    *
-   * @return array          The prefixed rules to replace the 'align-self' rule.
+   * @return CssRule[]      The prefixed rules to replace the 'align-self' rule.
    */
   protected function prefixAlignSelf( $value, $extra = null )
   {
@@ -285,7 +285,7 @@ class PleasingPrefixFilter implements FilterInterface
    * @param string  $value  The value of the property.
    * @param null    $extra  !important or null
    *
-   * @return array          The prefixed rules to replace the 'flex' rule.
+   * @return CssRule[]      The prefixed rules to replace the 'flex' rule.
    */
   protected function prefixFlex( $value, $extra = null )
   {
@@ -314,7 +314,7 @@ class PleasingPrefixFilter implements FilterInterface
    * @param string  $value  The value of the property.
    * @param null    $extra  !important or null
    *
-   * @return array          The prefixed rules to replace the 'justify-content' rule.
+   * @return CssRule[]      The prefixed rules to replace the 'justify-content' rule.
    */
   protected function prefixJustifyContent( $value, $extra = null )
   {
