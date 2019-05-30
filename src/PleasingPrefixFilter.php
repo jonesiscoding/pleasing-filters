@@ -455,7 +455,7 @@ class PleasingPrefixFilter implements FilterInterface
    *
    * @return PleasingPrefixFilter
    */
-  public function setPrefixValue( array $prefixValue )
+  public function setPrefixValues( array $prefixValue )
   {
     foreach( $prefixValue as $prop => $values )
     {
