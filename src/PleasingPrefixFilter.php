@@ -459,7 +459,7 @@ class PleasingPrefixFilter implements FilterInterface
   {
     foreach( $prefixValue as $prop => $values )
     {
-      $propDefaults = array_key_exists($prop,self::PREFIX_PROPERTY) ? self::PREFIX_PROPERTY[$prop] : array();
+      $propDefaults = array_key_exists($prop,self::PREFIX_VALUES) ? self::PREFIX_VALUES[$prop] : array();
       foreach( $values as $value => $prefixes )
       {
         $defaults = array_key_exists($value,$propDefaults) ? $propDefaults[ $value ] : array();
