@@ -507,6 +507,36 @@ class PleasingPrefixFilter implements FilterInterface
     return $this;
   }
 
+  /**
+   * Sets the usage of preconfigured prefixes.
+   *
+   * @param bool|int|string $use
+   *
+   * @return $this
+   */
+  public function setUsePreconfigured( $use )
+  {
+    if( !is_bool( $use ) )
+    {
+      if( is_string( $use ) )
+      {
+        $use = ( $use == 'false' ) ? false : true;
+      }
+      elseif( is_int( $use ) )
+      {
+        $use = ( $use == 0 ) ? false : true;
+      }
+      else
+      {
+        $use = true;
+      }
+    }
+
+    $this->preconfigured = $use;
+
+    return $this;
+  }
+
   // region //////////////////////////////////////////////// Private Helper Methods
 
   /**
