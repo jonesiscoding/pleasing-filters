@@ -80,7 +80,8 @@ class PleasingPrefixFilter implements FilterInterface
       'justify-content'       => array( '-ms-flex-pack', '-webkit-justify-content', 'justify-content' ),
       'align-items'           => array( '-ms-flex-align', '-webkit-align-items', 'align-items' ),
       'align-self'            => array( '-ms-flex-item-align', '-webkit-align-self', 'align-self' ),
-      'align-content'         => array( '-ms-flex-line-pack', '-webkit-align-content', 'align-content' )
+      'align-content'         => array( '-ms-flex-line-pack', '-webkit-align-content', 'align-content' ),
+      'flex'                  => array( '-ms-flex', '-webkit-flex', 'flex' )
   );
 
   private $prefixProperty = array();
