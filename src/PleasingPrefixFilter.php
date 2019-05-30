@@ -462,7 +462,8 @@ class PleasingPrefixFilter implements FilterInterface
       $propDefaults = array_key_exists($prop,self::PREFIX_VALUES) ? self::PREFIX_VALUES[$prop] : array();
       foreach( $values as $value => $prefixes )
       {
-        $defaults = array_key_exists($value,$propDefaults) ? $propDefaults[ $value ] : array();
+        $defaults  = array_key_exists( $value, $propDefaults ) ? $propDefaults[ $value ] : array();
+        $tPrefixes = array();
         foreach( $prefixes as $prefix )
         {
           if( substr($prefix,-1,1) === '*' )
@@ -488,17 +489,18 @@ class PleasingPrefixFilter implements FilterInterface
           {
             $tPrefixes[] = $prefix;
           }
-
-          if( !empty( $tPrefixes ) )
-          {
-            if( !in_array( $value, $tPrefixes ) )
-            {
-              $tPrefixes[] = $prop;
-            }
-
-            $this->prefixValue[ $prop ][ $value ] = $tPrefixes;
-          }
         }
+
+        if( !empty( $tPrefixes ) )
+        {
+          if( !in_array( $value, $tPrefixes ) )
+          {
+            $tPrefixes[] = $value;
+          }
+
+          $this->prefixValue[ $prop ][ $value ] = $tPrefixes;
+        }
+
       }
     }
 
