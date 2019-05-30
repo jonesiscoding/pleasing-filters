@@ -406,10 +406,9 @@ class PleasingPrefixFilter implements FilterInterface
     foreach( $prefixProperties as $property => $prefixes )
     {
       $defaults = array_key_exists( $property, self::PREFIX_PROPERTY ) ? self::PREFIX_PROPERTY[$property] : array();
+      $tPrefixes = array();
       foreach( $prefixes as $prefix )
       {
-        $tPrefixes = array();
-
         // Deal with wildcards
         if( substr($prefix,-1,1) === '*' )
         {
@@ -417,7 +416,7 @@ class PleasingPrefixFilter implements FilterInterface
           $len = strlen($pre);
           foreach( $defaults as $default )
           {
-            if( substr( $default, 0, $len ) === $pre )
+            if( substr( $default, 0, $len ) == $pre )
             {
               $tPrefixes[] = $default;
             }
