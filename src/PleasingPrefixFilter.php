@@ -368,7 +368,7 @@ class PleasingPrefixFilter implements FilterInterface
     {
       return $this->prefixProperty[ $property ];
     }
-    elseif( array_key_exists( $property, self::PREFIX_PROPERTY ) )
+    elseif( $this->preconfigured && array_key_exists( $property, self::PREFIX_PROPERTY ) )
     {
       return self::PREFIX_PROPERTY[ $property ];
     }
@@ -388,7 +388,7 @@ class PleasingPrefixFilter implements FilterInterface
     {
       return $this->prefixValue[ $prop ][ $val ];
     }
-    elseif( array_key_exists( $prop, self::PREFIX_VALUES ) && array_key_exists( $val, self::PREFIX_VALUES[ $prop ] ) )
+    elseif( $this->preconfigured && array_key_exists( $prop, self::PREFIX_VALUES ) && array_key_exists( $val, self::PREFIX_VALUES[ $prop ] ) )
     {
       return self::PREFIX_VALUES[ $prop ][ $val ];
     }
