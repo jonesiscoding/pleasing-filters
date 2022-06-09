@@ -8,7 +8,6 @@ namespace XQ\Pleasing\Filter;
 use XQ\Drivers\AbstractSassDriver;
 use XQ\Drivers\DartSassDriver;
 use XQ\Pleasing\Filter\Options\SassSourceMapInterface;
-use XQ\Pleasing\Filter\Options\SassSourceMapTrait;
 
 /**
  * Loads SASS/SCSS files using a driver for Dart Sass
@@ -20,8 +19,6 @@ use XQ\Pleasing\Filter\Options\SassSourceMapTrait;
  */
 class PleasingDartSassFilter extends AbstractSassDriverFilter implements SassSourceMapInterface
 {
-  use SassSourceMapTrait;
-
   /** @var DartSassDriver */
   protected $_Driver;
 
@@ -29,8 +26,9 @@ class PleasingDartSassFilter extends AbstractSassDriverFilter implements SassSou
    * @param bool $sourceMap
    *
    * @return PleasingDartSassFilter|AbstractSassDriverFilter
+   * @throws \Exception
    */
-  public function setSourceMap( bool $sourceMap ): AbstractSassDriverFilter
+  public function setSourceMap(bool $sourceMap): AbstractSassDriverFilter
   {
     $this->Driver()->setSourceMap( $sourceMap );
 
@@ -42,7 +40,7 @@ class PleasingDartSassFilter extends AbstractSassDriverFilter implements SassSou
    *
    * @return AbstractSassDriverFilter
    */
-  public function setTmpPath( string $tmp ): AbstractSassDriverFilter
+  public function setTmpPath(string $tmp): AbstractSassDriverFilter
   {
     // Reset the SASS Driver, as it may depend on this path
     $this->_Driver = null;

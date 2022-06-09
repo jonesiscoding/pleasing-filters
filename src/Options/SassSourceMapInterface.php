@@ -11,5 +11,5 @@ interface SassSourceMapInterface
    *
    * @return AbstractSassDriverFilter|SassSourceMapInterface
    */
-  public function setSourceMap( bool $sourceMap ): AbstractSassDriverFilter;
+  public function setSourceMap(bool $sourceMap): AbstractSassDriverFilter;
 }

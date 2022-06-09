@@ -12,7 +12,7 @@ use XQ\Pleasing\Filter\Options\SassPluginInterface;
 use XQ\Pleasing\Filter\Options\SassSourceMapInterface;
 
 /**
- * Loads SASS/SCSS files using a driver for Sassc, PHP Sass, or Leafo's scssphp.
+ * Loads SASS/SCSS files using a driver for Sassc.
  *
  * @author  Aaron M Jones <am@jonesiscoding.com>
  * @version Pleasing Filters v2.0 (https://github.com/jonesiscoding/pleasing-filters)
@@ -32,7 +32,7 @@ class PleasingSasscFilter extends AbstractSassDriverFilter implements SassSource
    * @return PleasingSasscFilter|AbstractSassDriverFilter
    * @throws \Exception
    */
-  public function setSourceMap( bool $sourceMap ): AbstractSassDriverFilter
+  public function setSourceMap(bool $sourceMap): AbstractSassDriverFilter
   {
     $this->Driver()->setSourceMap( $sourceMap );
 
@@ -45,7 +45,7 @@ class PleasingSasscFilter extends AbstractSassDriverFilter implements SassSource
    * @return PleasingSasscFilter|AbstractSassDriverFilter
    * @throws \Exception
    */
-  public function setPluginPaths( array $paths ): AbstractSassDriverFilter
+  public function setPluginPaths(array $paths): AbstractSassDriverFilter
   {
     $this->Driver()->setPluginPaths( $paths );
 
@@ -54,11 +54,12 @@ class PleasingSasscFilter extends AbstractSassDriverFilter implements SassSource
 
   /**
    * @param string $path
-   * @param bool $prepend
+   * @param bool   $prepend
    *
    * @return PleasingSasscFilter|AbstractSassDriverFilter
+   * @throws \Exception
    */
-  public function addPluginPath( string $path, bool $prepend = false ): AbstractSassDriverFilter
+  public function addPluginPath(string $path, bool $prepend = false): AbstractSassDriverFilter
   {
     $this->Driver()->addPluginPath( $path, $prepend );
 
@@ -68,9 +69,9 @@ class PleasingSasscFilter extends AbstractSassDriverFilter implements SassSource
   /**
    * @param string $tmp
    *
-   * @return PleasingSasscDriver|AbstractSassDriverFilter
+   * @return SasscDriver|AbstractSassDriverFilter
    */
-  public function setTmpPath( string $tmp ): AbstractSassDriverFilter
+  public function setTmpPath(string $tmp): AbstractSassDriverFilter
   {
     // Reset the SASS Driver, as it may depend on this path
     $this->_Driver = null;

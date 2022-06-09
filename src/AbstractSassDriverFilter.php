@@ -6,6 +6,7 @@ use Assetic\Asset\AssetInterface;
 use Assetic\Filter\FilterInterface;
 use XQ\Drivers\AbstractSassDriver;
 use XQ\Drivers\DartSassDriver;
+use XQ\Drivers\Message\DartSassException;
 use XQ\Drivers\SasscDriver;
 
 /**
@@ -34,7 +35,7 @@ abstract class AbstractSassDriverFilter implements FilterInterface
    * @param int|bool    $debug
    * @param string|null $tmpPath
    */
-  public function __construct($debug = false, $tmpPath = null)
+  public function __construct($debug = false, string $tmpPath = null)
   {
     $this->_debug = $debug;
 
@@ -47,9 +48,12 @@ abstract class AbstractSassDriverFilter implements FilterInterface
   // region //////////////////////////////////////////////// Implemented Methods
 
   /**
-   * {@inheritDoc}
+   * @param AssetInterface $asset
+   *
+   * @return void
+   * @throws DartSassException
    */
-  public function filterLoad( AssetInterface $asset )
+  public function filterLoad(AssetInterface $asset)
   {
     // Add the source folder as the FIRST import path
     if ( $dir = $asset->getSourceDirectory() )
@@ -64,7 +68,7 @@ abstract class AbstractSassDriverFilter implements FilterInterface
   /**
    * {@inheritDoc}
    */
-  public function filterDump( AssetInterface $asset )
+  public function filterDump(AssetInterface $asset)
   {
   }
 
@@ -78,7 +82,7 @@ abstract class AbstractSassDriverFilter implements FilterInterface
    *
    * @return $this
    */
-  public function addImportPath( string $path, bool $prepend = false): AbstractSassDriverFilter
+  public function addImportPath(string $path, bool $prepend = false): AbstractSassDriverFilter
   {
     $this->Driver()->addImportPath( $path, $prepend);
 
@@ -90,7 +94,7 @@ abstract class AbstractSassDriverFilter implements FilterInterface
    *
    * @return $this
    */
-  public function setBin( string $_bin ): AbstractSassDriverFilter
+  public function setBin(string $_bin): AbstractSassDriverFilter
   {
     $this->_bin = $_bin;
 
@@ -101,8 +105,9 @@ abstract class AbstractSassDriverFilter implements FilterInterface
    * @param string $style
    *
    * @return AbstractSassDriverFilter
+   * @throws \Exception
    */
-  public function setOutputStyle( string $style ): AbstractSassDriverFilter
+  public function setOutputStyle(string $style): AbstractSassDriverFilter
   {
     $this->Driver()->setOutputStyle( $style );
 
@@ -114,7 +119,7 @@ abstract class AbstractSassDriverFilter implements FilterInterface
    *
    * @return AbstractSassDriverFilter
    */
-  public function setImportPaths( array $paths )
+  public function setImportPaths(array $paths): AbstractSassDriverFilter
   {
     $this->Driver()->setImportPaths( $paths );
 
@@ -144,7 +149,7 @@ abstract class AbstractSassDriverFilter implements FilterInterface
     {
       $this->_debug = $debug ? 1 : 0;
     }
-    elseif(is_int($debug))
+    elseif (is_int($debug))
     {
       $this->_debug = $debug;
     }

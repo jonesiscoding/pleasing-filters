@@ -36,7 +36,7 @@ class CssRule
    * @param string $value
    * @param string $bang
    */
-  public function __construct( $property = null, $value = null, $bang = null)
+  public function __construct($property = null, $value = null, $bang = null)
   {
     $this->property = $property;
     $this->value    = $value;
@@ -50,9 +50,9 @@ class CssRule
    *
    * @return null|CssRule
    */
-  public static function fromString( $string )
+  public static function fromString($string)
   {
-    if( preg_match( '#(\s+)?([^:]+):([^!;]+)([^;]+)?#', trim( $string, "\n\r" ), $matches ) )
+    if ( preg_match( '#(\s+)?([^:]+):([^!;]+)([^;]+)?#', trim( $string, "\n\r" ), $matches ) )
     {
       $rule = new self();
       $rule
@@ -64,12 +64,12 @@ class CssRule
       ;
 
       // Replace Property in Template
-      $pattern  = "#(" . preg_quote( $rule->getProperty(), "#" ) . "([\s:]+))#";
+      $pattern = "#(" . preg_quote( $rule->getProperty(), "#" ) . "([\s:]+))#";
 
       $template = preg_replace( $pattern, "%s$2", $matches[ 0 ] . ';' );
 
       // Replace Value in Template
-      $pattern = "#(:([\s]+))" . preg_quote( $rule->getValue(), "#" ) . "#";
+      $pattern  = "#(:([\s]+))" . preg_quote( $rule->getValue(), "#" ) . "#";
       $template = preg_replace(  $pattern, "$1%s", $template );
 
       // Replace Bang in Template
@@ -131,7 +131,7 @@ class CssRule
   }
 
   /**
-   * An sprintf template for recreating the CSS rule.  Arguments are property, value, bang.
+   * A sprintf template for recreating the CSS rule.  Arguments are property, value, bang.
    *
    * @return string
    */
@@ -155,7 +155,7 @@ class CssRule
    *
    * @return CssRule
    */
-  public function setBang( $bang )
+  public function setBang($bang): CssRule
   {
     $this->bang = $bang;
 
@@ -167,7 +167,7 @@ class CssRule
    *
    * @return CssRule
    */
-  public function setIndent( $indent )
+  public function setIndent($indent): CssRule
   {
     $this->indent = $indent;
 
@@ -179,7 +179,7 @@ class CssRule
    *
    * @return CssRule
    */
-  public function setProperty( $property )
+  public function setProperty($property): CssRule
   {
     $this->property = $property;
 
@@ -191,7 +191,7 @@ class CssRule
    *
    * @return CssRule
    */
-  public function setRaw( $raw )
+  public function setRaw($raw): CssRule
   {
     $this->raw = $raw;
 
@@ -203,7 +203,7 @@ class CssRule
    *
    * @return CssRule
    */
-  public function setTemplate( $template )
+  public function setTemplate($template): CssRule
   {
     $this->template = $template;
 
@@ -215,7 +215,7 @@ class CssRule
    *
    * @return CssRule
    */
-  public function setValue( $value )
+  public function setValue($value): CssRule
   {
     $this->value = $value;
 

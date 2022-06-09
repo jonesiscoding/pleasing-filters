@@ -12,7 +12,7 @@ interface SassPluginInterface
    * @return AbstractSassDriverFilter|SassPluginInterface
    * @throws \Exception
    */
-  public function setPluginPaths( array $paths ): AbstractSassDriverFilter;
+  public function setPluginPaths(array $paths): AbstractSassDriverFilter;
 
   /**
    * @param string $path
@@ -20,5 +20,5 @@ interface SassPluginInterface
    *
    * @return AbstractSassDriverFilter|SassPluginInterface
    */
-  public function addPluginPath( string $path, bool $prepend = false ): AbstractSassDriverFilter;
+  public function addPluginPath(string $path, bool $prepend = false): AbstractSassDriverFilter;
 }

@@ -15,24 +15,26 @@ use JShrink\Minifier;
  * Class PleasingMinifyFilter
  *
  * @author  Aaron M Jones <am@jonesiscoding.com>
- * @version Pleasing Filters v1.1 (https://github.com/jonesiscoding/pleasing-filters)
+ * @version Pleasing Filters v2.0 (https://github.com/jonesiscoding/pleasing-filters)
  * @license MIT (https://github.com/jonesiscoding/pleasing-filters/blob/master/LICENSE)
  *
  * @package XQ\Pleasing\Assetic\Filter
  */
 class PleasingMinifyFilter implements FilterInterface
 {
-
   private $comments = null;
 
   public function filterLoad(AssetInterface $asset)
   {
   }
 
+  /**
+   * @throws \Exception
+   */
   public function filterDump(AssetInterface $asset)
   {
     $assetPath = $asset->getSourcePath();
-    $ext = ($assetPath) ? pathinfo($assetPath, PATHINFO_EXTENSION) : false;
+    $ext       = ($assetPath) ? pathinfo($assetPath, PATHINFO_EXTENSION) : false;
 
     $content = $asset->getContent();
 
@@ -80,58 +82,58 @@ class PleasingMinifyFilter implements FilterInterface
    *
    * @return string
    */
-  private function removeComments( $input, $proxy = false )
+  private function removeComments($input, $proxy = false)
   {
     if ( preg_match_all("/\/\*([^*]|[\r\n]|(\*+([^*\/]|[\r\n])))*\*+\//", $input, $comments) )
     {
       foreach ( $comments[ 0 ] as $comment )
       {
-        $lines = explode(PHP_EOL, $comment);
-        $newComment = implode(PHP_EOL,preg_grep("/copyright|license|author|preserve|credit|http|\/\*\!/i",$lines));
+        $lines      = explode(PHP_EOL, $comment);
+        $newComment = implode(PHP_EOL, preg_grep("/copyright|license|author|preserve|credit|http|\/\*\!/i", $lines));
 
-        if($newComment)
+        if ($newComment)
         {
           // Add proper comment encapsulation
           if ( count( $lines ) > 1 )
           {
-            $prefix = (substr($newComment,0,3) == '/*!') ? '' : '/*!' . PHP_EOL;
+            $prefix     = (substr($newComment, 0, 3) == '/*!') ? '' : '/*!' . PHP_EOL;
             $newComment = $prefix . $newComment . PHP_EOL . " */";
           }
           else
           {
-            $newComment = str_replace( array("/* ","/** "), "/*! ", $newComment );
+            $newComment = str_replace( ["/* ","/** "], "/*! ", $newComment );
           }
 
-          if($proxy) { $this->comments[] = $newComment; }
+          if ($proxy)
+          {
+            $this->comments[] = $newComment;
+          }
 
           $input = str_replace( $comment, $newComment, $input );
-
         }
         else
         {
           $input = str_replace( $comment, "", $input );
         }
       }
-
     }
 
     return $input;
   }
 
-  private function stashComments( $input )
+  private function stashComments($input)
   {
-    $this->comments = array();
-    $input = $this->removeComments( $input, true );
+    $this->comments = [];
+    $input          = $this->removeComments( $input, true );
     foreach ( $this->comments as $key => $value )
     {
       $input = str_replace( $value, "||" . $key . "||", $input );
     }
 
     return $input;
-
   }
 
-  private function retrieveComments( $input )
+  private function retrieveComments($input)
   {
     if ( !empty( $this->comments) && is_array( $this->comments ) )
     {
@@ -141,9 +143,7 @@ class PleasingMinifyFilter implements FilterInterface
       }
     }
 
-    $input = str_replace( "}/*", "}" . PHP_EOL . "/*", $input );
-
-    return $input;
+    return str_replace( "}/*", "}" . PHP_EOL . "/*", $input );
   }
 
   /**
@@ -159,7 +159,6 @@ class PleasingMinifyFilter implements FilterInterface
    */
   private function minifyCSS($input)
   {
-    $keepComments = null;
     $output = $this->stashComments( $input );
 
     // Remove Comments, preserving comments marked as important
@@ -176,12 +175,10 @@ class PleasingMinifyFilter implements FilterInterface
     $output = preg_replace("/0\.([0-9]+)/", '.$1', $output);
 
     // Extra whitespace
-    $output = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $output);
+    $output = str_replace(["\r\n", "\r", "\n", "\t", '  ', '    ', '    '], '', $output);
 
     // Add line breaks around remaining comments
-    $output = $this->retrieveComments( $output );
-
-    return $output;
+    return $this->retrieveComments( $output );
   }
 
   /**
@@ -194,8 +191,7 @@ class PleasingMinifyFilter implements FilterInterface
    */
   private function shortenHex($input)
   {
-    $output = preg_replace('/(?<![\'"])#([a-z0-9])\\1([a-z0-9])\\2([a-z0-9])\\3(?![\'"])/i', '#$1$2$3', $input);
-    return $output;
+    return preg_replace('/(?<![\'"])#([a-z0-9])\\1([a-z0-9])\\2([a-z0-9])\\3(?![\'"])/i', '#$1$2$3', $input);
   }
 
   /**
@@ -220,5 +216,4 @@ class PleasingMinifyFilter implements FilterInterface
 
     return $output;
   }
-
 }
