@@ -4,24 +4,24 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "10cd7dc6213d5eb0b0213c626ce3f9fc",
+    "content-hash": "1cb252cf3afd158d28889348191a8b1e",
     "packages": [
         {
             "name": "jonesiscoding/xq-sassy",
-            "version": "1.0.9",
+            "version": "1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jonesiscoding/xq-sassy.git",
-                "reference": "cad2575ac54c997f9bf13233775fb4738dee4bbf"
+                "reference": "65287f11fda8c1ad013b476fa12570b40ed14ce2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jonesiscoding/xq-sassy/zipball/cad2575ac54c997f9bf13233775fb4738dee4bbf",
-                "reference": "cad2575ac54c997f9bf13233775fb4738dee4bbf",
+                "url": "https://api.github.com/repos/jonesiscoding/xq-sassy/zipball/65287f11fda8c1ad013b476fa12570b40ed14ce2",
+                "reference": "65287f11fda8c1ad013b476fa12570b40ed14ce2",
                 "shasum": ""
             },
             "require": {
-                "symfony/process": ">=2.8"
+                "symfony/process": "^3.4"
             },
             "replace": {
                 "exactquery/xq-sassy": "^1.0"
@@ -42,7 +42,7 @@
             "authors": [
                 {
                     "name": "Aaron M Jones",
-                    "homepage": "http://www.jonesiscoding.com"
+                    "homepage": "https://www.jonesiscoding.com"
                 }
             ],
             "description": "PHP Drivers for SassC, PHP Sass, and scssphp, designed to work with Assetic.",
@@ -55,7 +55,11 @@
                 "sassc",
                 "scss"
             ],
-            "time": "2018-06-20T13:20:47+00:00"
+            "support": {
+                "issues": "https://github.com/jonesiscoding/xq-sassy/issues",
+                "source": "https://github.com/jonesiscoding/xq-sassy/tree/v1.3"
+            },
+            "time": "2022-06-08T21:49:25+00:00"
         },
         {
             "name": "symfony/process",
@@ -238,5 +242,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
 }
