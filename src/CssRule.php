@@ -3,7 +3,7 @@
  * CssRule.php
  */
 
-namespace XQ\Pleasing\Filter;
+namespace DevCoding\Pleasing\Filters;
 
 /**
  * An entity representing a single CSS rule.
@@ -14,7 +14,7 @@ namespace XQ\Pleasing\Filter;
  * @version Pleasing Filters v1.1 (https://github.com/jonesiscoding/pleasing-filters)
  * @license MIT (https://github.com/jonesiscoding/pleasing-filters/blob/master/LICENSE)
  *
- * @package XQ\Pleasing\Filter
+ * @package DevCoding\Pleasing\Filters
  */
 class CssRule
 {

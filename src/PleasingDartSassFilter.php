@@ -3,11 +3,11 @@
  * PleasingSassFilter.php
  */
 
-namespace XQ\Pleasing\Filter;
+namespace DevCoding\Pleasing\Filters;
 
 use XQ\Drivers\AbstractSassDriver;
 use XQ\Drivers\DartSassDriver;
-use XQ\Pleasing\Filter\Options\SassSourceMapInterface;
+use DevCoding\Pleasing\Filters\Options\SassSourceMapInterface;
 
 /**
  * Loads SASS/SCSS files using a driver for Dart Sass
@@ -15,7 +15,7 @@ use XQ\Pleasing\Filter\Options\SassSourceMapInterface;
  * @author  Aaron M Jones <am@jonesiscoding.com>
  * @version Pleasing Filters v2.0 (https://github.com/jonesiscoding/pleasing-filters)
  * @license MIT (https://github.com/jonesiscoding/pleasing-filters/blob/master/LICENSE)
- * @package XQ\Pleasing\Filter
+ * @package DevCoding\Pleasing\Filters
  */
 class PleasingDartSassFilter extends AbstractSassDriverFilter implements SassSourceMapInterface
 {

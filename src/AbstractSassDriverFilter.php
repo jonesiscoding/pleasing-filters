@@ -1,6 +1,6 @@
 <?php
 
-namespace XQ\Pleasing\Filter;
+namespace DevCoding\Pleasing\Filters;
 
 use Assetic\Asset\AssetInterface;
 use Assetic\Filter\FilterInterface;
@@ -15,7 +15,7 @@ use XQ\Drivers\SasscDriver;
  * @author  Aaron M Jones <am@jonesiscoding.com>
  * @version Pleasing Filters v2.0 (https://github.com/jonesiscoding/pleasing-filters)
  * @license MIT (https://github.com/jonesiscoding/pleasing-filters/blob/master/LICENSE)
- * @package XQ\Pleasing\Filter
+ * @package DevCoding\Pleasing\Filters
  */
 abstract class AbstractSassDriverFilter implements FilterInterface
 {

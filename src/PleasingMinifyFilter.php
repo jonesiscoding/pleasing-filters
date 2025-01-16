@@ -3,7 +3,7 @@
  * PleasingMinifyFilter.php
  */
 
-namespace XQ\Pleasing\Filter;
+namespace DevCoding\Pleasing\Filters;
 
 use Assetic\Asset\AssetInterface;
 use Assetic\Filter\FilterInterface;

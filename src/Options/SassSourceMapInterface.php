@@ -1,8 +1,8 @@
 <?php
 
-namespace XQ\Pleasing\Filter\Options;
+namespace DevCoding\Pleasing\Filters\Options;
 
-use XQ\Pleasing\Filter\AbstractSassDriverFilter;
+use DevCoding\Pleasing\Filters\AbstractSassDriverFilter;
 
 interface SassSourceMapInterface
 {

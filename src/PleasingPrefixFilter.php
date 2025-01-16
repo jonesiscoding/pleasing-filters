@@ -3,7 +3,7 @@
  * PleasingPrefixFilter.php
  */
 
-namespace XQ\Pleasing\Filter;
+namespace DevCoding\Pleasing\Filters;
 
 use Assetic\Asset\AssetInterface;
 use Assetic\Filter\FilterInterface;
@@ -20,7 +20,7 @@ use Assetic\Filter\FilterInterface;
  * @license MIT (https://github.com/jonesiscoding/pleasing-filters/blob/master/LICENSE)
  *
  * Class PleasingPrefixFilter
- * @package XQ\Pleasing\Filter
+ * @package DevCoding\Pleasing\Filters
  */
 class PleasingPrefixFilter implements FilterInterface
 {
@@ -341,8 +341,8 @@ class PleasingPrefixFilter implements FilterInterface
         return $val;
       }
 
-      // Set up matches array - slightly different for 'justify' properties.
       $matches = [ 'flex-start' => 'start', 'flex-end' => 'end' ];
+      // Slightly different for 'justify' properties.
       if ( strpos( $val, 'justify' ) !== false )
       {
         $matches[ 'space-between' ] = 'justify';

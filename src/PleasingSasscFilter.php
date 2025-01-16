@@ -3,13 +3,13 @@
  * PleasingSassFilter.php
  */
 
-namespace XQ\Pleasing\Filter;
+namespace DevCoding\Pleasing\Filters;
 
 use XQ\Drivers\AbstractSassDriver;
 use XQ\Drivers\Options\SourceMapTrait;
 use XQ\Drivers\SasscDriver;
-use XQ\Pleasing\Filter\Options\SassPluginInterface;
-use XQ\Pleasing\Filter\Options\SassSourceMapInterface;
+use DevCoding\Pleasing\Filters\Options\SassPluginInterface;
+use DevCoding\Pleasing\Filters\Options\SassSourceMapInterface;
 
 /**
  * Loads SASS/SCSS files using a driver for Sassc.
