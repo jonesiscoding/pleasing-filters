@@ -4,6 +4,7 @@ namespace DevCoding\Pleasing\Filters;
 
 use Assetic\Asset\AssetInterface;
 use Assetic\Filter\FilterInterface;
+use DevCoding\Pleasing\Filters\Options\ImportPathsInterface;
 use XQ\Drivers\AbstractSassDriver;
 use XQ\Drivers\DartSassDriver;
 use XQ\Drivers\Message\DartSassException;
@@ -17,7 +18,7 @@ use XQ\Drivers\SasscDriver;
  * @license MIT (https://github.com/jonesiscoding/pleasing-filters/blob/master/LICENSE)
  * @package DevCoding\Pleasing\Filters
  */
-abstract class AbstractSassDriverFilter implements FilterInterface
+abstract class AbstractSassDriverFilter implements FilterInterface, ImportPathsInterface
 {
   /** @var string */
   protected $_tmp = '/tmp/pleasing';
