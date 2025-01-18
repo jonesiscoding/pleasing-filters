@@ -171,6 +171,9 @@ class PleasingMinifyFilter implements FilterInterface
     // Replace common units after 0's - they aren't needed
     $output = preg_replace('/((?<!\\\\)\:|\s)\-?0(?:em|cm|mm|in|px|pt|%)/iS', '${1}0', $output);
 
+    // Fix common units after 0's for 'flex' to avoid IE10/11 issues
+    $output = preg_replace("#(\b[\-webkit\-|\-ms\-]?flex:\s?[0-9]+\s[0-9]+)\s0;#", "$1 0%;", $output);
+
     // Remove Leading Zeros in Floats
     $output = preg_replace("/0\.([0-9]+)/", '.$1', $output);
 
