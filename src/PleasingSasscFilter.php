@@ -15,7 +15,7 @@ use DevCoding\Pleasing\Filters\Options\SassSourceMapInterface;
  * Loads SASS/SCSS files using a driver for Sassc.
  *
  * @author  Aaron M Jones <am@jonesiscoding.com>
- * @version Pleasing Filters v2.0 (https://github.com/jonesiscoding/pleasing-filters)
+ * @version Pleasing Filters v3.0 (https://github.com/jonesiscoding/pleasing-filters)
  * @license MIT (https://github.com/jonesiscoding/pleasing-filters/blob/master/LICENSE)
  * @package DevCoding\Pleasing\Filters
  */
