@@ -17,7 +17,7 @@ use DevCoding\Pleasing\Filters\Options\SassSourceMapInterface;
  * @author  Aaron M Jones <am@jonesiscoding.com>
  * @version Pleasing Filters v2.0 (https://github.com/jonesiscoding/pleasing-filters)
  * @license MIT (https://github.com/jonesiscoding/pleasing-filters/blob/master/LICENSE)
- * @package XQ\Pleasing\Assetic\Filter
+ * @package DevCoding\Pleasing\Filters
  */
 class PleasingSasscFilter extends AbstractSassDriverFilter implements SassSourceMapInterface, SassPluginInterface
 {
